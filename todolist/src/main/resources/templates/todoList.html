@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Todo List</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+	<div class="container mt-5">
+		<div class="row">
+	        <div class="col-6">
+	            <h1 class="mb-4">Todo List</h1>
+	        </div>
+	        <div class="col-6 text-right">
+	            <a th:href="@{/login?logout}" class="btn btn-danger">Logout</a>
+	        </div>
+	    </div>
+		<form th:action="@{/add}" method="post" class="todo-form">
+            <div class="form-row">
+                <div class="col-8">
+                    <input type="text" class="form-control todo-description" id="description" name="description" placeholder="Enter a new todo item" required>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary add-button">Add</button>
+                </div>
+            </div>
+        </form>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Description</th>
+					<th>Completed</th>
+					<th>Actions</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="item : ${todoItems}">
+					<td th:text="${item.description}" th:classappend="${item.completed} ? 'completed' : ''"></td>
+                    <td><input type="checkbox" th:checked="${item.completed}" disabled="disabled"></td>
+                    <td>
+                        <form th:action="@{/toggle/{id}(id=${item.id})}" method="post">
+                            <button type="submit" class="btn btn-primary">Toggle</button>
+                        </form>
+                    </td>
+                    <td>
+                    	<form th:action="@{/delete/{id}(id=${item.id})}" method="post">
+                    		<button type="submit" class="btn btn-danger">Delete</button>
+                    	</form>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
