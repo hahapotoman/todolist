@@ -16,3 +16,30 @@
 .add-button {
 	margin-left: 10px;
 }
+
+.category-label {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.work {
+    background-color: #3498db; /* Blue */
+    color: #ffffff; /* White text on blue background */
+}
+
+.personal {
+    background-color: #27ae60; /* Green */
+    color: #ffffff; /* White text on green background */
+}
+
+.shopping {
+    background-color: #e74c3c; /* Red */
+    color: #ffffff; /* White text on red background */
+}
+
+.others {
+    background-color: #95a5a6; /* Gray */
+    color: #ffffff; /* White text on gray background */
+}

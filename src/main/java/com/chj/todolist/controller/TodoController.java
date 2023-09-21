@@ -60,9 +60,9 @@ public class TodoController {
     // @param description 새로운 Todo 아이템의 설명
     // @return 리스트 화면으로 리다이렉트
 	@PostMapping("/add")
-    public String addTodoItem(@RequestParam String description, @AuthenticationPrincipal User user) {
+    public String addTodoItem(@RequestParam String description, @RequestParam String category, @AuthenticationPrincipal User user) {
 		// 서비스를 통해 새로운 Todo 아이템 추가
-        todoItemService.addTodoItem(description, user);
+        todoItemService.addTodoItem(description, category, user);
         
      // 리스트 화면으로 리다이렉트
         return "redirect:/";

@@ -26,6 +26,7 @@ public class TodoItem {
 	private Long id;
 	
 	private String description;
+	private String category;
 	private boolean completed;
 	
 	@ManyToOne // 다대일 관계

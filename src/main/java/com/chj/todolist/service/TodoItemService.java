@@ -42,10 +42,11 @@ public class TodoItemService {
 	// 사용자로부터 입력받은 description을 받아와 새로운 Todo 아이템을 생성하고 데이터베이스에 저장합니다.
 	// @param description 새로운 Todo 아이템의 설명
 	@Transactional
-    public void addTodoItem(String description, User user) {
+    public void addTodoItem(String description, String category, User user) {
 		// 새로운 TodoItem 객체 생성
 		TodoItem newTodoItem = TodoItem.builder()
                 .description(description)
+                .category(category)
                 .completed(false)
                 .user(user)
                 .build();
@@ -71,6 +72,7 @@ public class TodoItemService {
 		return TodoItemDTO.builder()
 				.id(todoItem.getId())
 				.description(todoItem.getDescription())
+				.category(todoItem.getCategory())
 				.completed(todoItem.isCompleted())
 				.build();
 	}

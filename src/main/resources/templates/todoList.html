@@ -20,7 +20,12 @@
                 <div class="col-8">
                     <input type="text" class="form-control todo-description" id="description" name="description" placeholder="Enter a new todo item" required>
                 </div>
-                <div class="col">
+                <div class="col-3">
+                    <select class="form-control" id="category" name="category" required>
+                        <option th:each="categoryOption : ${T(com.chj.todolist.Constants).CATEGORY_OPTIONS}" th:value="${categoryOption}" th:text="${categoryOption}"></option>
+                    </select>
+                </div>
+                <div class="col-1">
                     <button type="submit" class="btn btn-primary add-button">Add</button>
                 </div>
             </div>
@@ -29,6 +34,7 @@
 			<thead>
 				<tr>
 					<th>Description</th>
+					<th>Category</th>
 					<th>Completed</th>
 					<th>Actions</th>
 					<th>Delete</th>
@@ -37,6 +43,9 @@
 			<tbody>
 				<tr th:each="item : ${todoItems}">
 					<td th:text="${item.description}" th:classappend="${item.completed} ? 'completed' : ''"></td>
+                    <td>
+                    	<span th:text="${item.category}" th:class="'category-label ' + ${#strings.toLowerCase(item.category)}"></span>
+                    </td>
                     <td><input type="checkbox" th:checked="${item.completed}" disabled="disabled"></td>
                     <td>
                         <form th:action="@{/toggle/{id}(id=${item.id})}" method="post">

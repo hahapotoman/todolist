@@ -11,6 +11,7 @@ public class TodoItemDTO {
 
 	private Long id;
 	private String description;
+	private String category;
 	private boolean completed;
 	
 }
