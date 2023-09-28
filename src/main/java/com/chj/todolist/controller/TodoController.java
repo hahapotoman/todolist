@@ -30,15 +30,23 @@ public class TodoController {
     // @param model Thymeleaf 모델 객체
     // @return todoList.html 템플릿 이름
     @GetMapping("/")
-	public String getAllTodoItems(Model model, Principal principal) {
+	public String getAllTodoItems(Model model, Principal principal, @RequestParam(name = "filter", required = false) String filter) {
     	String username = principal.getName();
         User user = userRepository.findByUsername(username);
         
     	// 서비스를 통해 모든 Todo 아이템을 가져옴
-		List<TodoItemDTO> todoItems = todoItemService.getTodoItemsByUser(user);
+		List<TodoItemDTO> todoItems;
+		if ("completed".equals(filter)) {
+            todoItems = todoItemService.getCompletedTodoItemsByUser(user);
+        } else if ("incomplete".equals(filter)) {
+            todoItems = todoItemService.getIncompleteTodoItemsByUser(user);
+        } else {
+            todoItems = todoItemService.getTodoItemsByUser(user);
+        }
 		
 		// 모델에 Todo 아이템 리스트를 추가하여 뷰로 전달
 		model.addAttribute("todoItems", todoItems);
+		model.addAttribute("filter", filter);
 		
 		// todoList.html 템플릿으로 이동
 		return "todoList";
